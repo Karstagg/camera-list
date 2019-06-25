@@ -16,11 +16,11 @@ for (let i = 0; i < devices.length; i++) {
   for (let j = 0; j < statuses.length; j++) {
     if (devices[i].id === statuses[j].deviceId) {
       if (statuses[j].active === true) {
-        activeDevices[devices[i].id] = [devices[i], statuses[j]]
+        activeDevices.push([devices[i], statuses[j]])
       } else {
-        inactiveDevices[devices[i].id] = [devices[i], statuses[j]]
+        inactiveDevices.push([devices[i], statuses[j]])
       }
-      allDevices[devices[i].id] = [devices[i], statuses[j]]
+      allDevices.push([devices[i], statuses[j]])
     }
   }
 }
@@ -35,6 +35,15 @@ const Container = Styled.div`
     width: 100%;
   }
 `
+const SearchArea= Styled.div`
+  text-align: left;
+`
+const Search= Styled.input`
+  width: 25%
+`
+const Filter= Styled.select`
+  width: 10%
+`
 const Grid = Styled.div`
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
@@ -47,19 +56,39 @@ const Grid = Styled.div`
   }
 `
 
+
 class CameraList extends React.Component {
   constructor(props) {
     super(props)
+    this.handleChangeText = this.handleChangeText.bind(this);
+    this.handleChangeSelect = this.handleChangeSelect.bind(this);
     this.state = {
-      sort: "active",
+      sort: "name",
       search: ''
     }
   }
 
-  render() {
+  handleChangeText(event) {
+    this.setState({search: event.target.value});
+  }
+  handleChangeSelect(event) {
+    this.setState({sort: event.target.value});
+  }
+  renderFilter() {
+    return <SearchArea>
+      <Search type="text" name="search" value={this.state.search} onChange={this.handleChangeText} />
+      <Filter onChange={this.handleChangeSelect}>
+        <option value="name">Name</option>
+        <option value="active">Active</option>
+      </Filter>
+    </SearchArea>
+  }
 
+  render() {
+    console.log(activeDevices)
     if (this.state.sort === "name") {
       return <Container>
+        {this.renderFilter()}
         <Label label="All Devices" count={allDevices.length}/>
         <Grid>
         {
@@ -74,6 +103,7 @@ class CameraList extends React.Component {
     } else {
       return <div>
       <Container>
+        {this.renderFilter()}
         <Label label="Active Devices" count={activeDevices.length}/>
         <Grid>
           {
