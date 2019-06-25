@@ -1,6 +1,7 @@
 import React from "react"
 import Card from "./Card"
 import Styled from "styled-components"
+import Label from "./label"
 
 const devicesData = require("../data/sample-devices")
 const devicesStatus = require("../data/sample-status")
@@ -23,21 +24,26 @@ for (let i = 0; i < devices.length; i++) {
     }
   }
 }
-
+const Container = Styled.div`
+  width: 65%;
+  margin-left: 17.5%;
+  margin-right: 17.5%;
+  margin-top : 40px;
+  @media only screen and (max-width: 812px) {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+`
 const Grid = Styled.div`
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
   grid-column-gap: 15px;
   grid-row-gap: 15px;
-  width: 65%;
-  margin-left: 17.5%;
-  margin-right: 17.5%;
-  margin-top : 50px;
+  margin-top : 40px;
   @media only screen and (max-width: 812px) {
     grid-template-columns: 100% ;
-    width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+    
   }
 `
 
@@ -51,9 +57,11 @@ class CameraList extends React.Component {
   }
 
   render() {
-    console.log(allDevices)
+
     if (this.state.sort === "name") {
-      return <Grid>
+      return <Container>
+        <Label label="All Devices" count={allDevices.length}/>
+        <Grid>
         {
           allDevices.map((device, index) => (
             <div key={index}>
@@ -62,8 +70,11 @@ class CameraList extends React.Component {
           ))
         }
       </Grid>
+      </Container>
     } else {
       return <div>
+      <Container>
+        <Label label="Active Devices" count={activeDevices.length}/>
         <Grid>
           {
             activeDevices.map((device, index) => (
@@ -73,6 +84,9 @@ class CameraList extends React.Component {
             ))
           }
         </Grid>
+        </Container>
+        <Container>
+        <Label label="Inactive Devices" count={inactiveDevices.length}/>
         <Grid>
           {
             inactiveDevices.map((device, index) => (
@@ -82,6 +96,7 @@ class CameraList extends React.Component {
             ))
           }
         </Grid>
+      </Container>
       </div>
     }
   }

@@ -22,7 +22,7 @@ const CardFooter = Styled.div`
   color: white;
   border-radius: 0px 0px 15px 15px;
   text-align: left;
-    display: grid;
+  display: grid;
   grid-template-columns: 10% 90%;
   grid-column-gap: 15px;
   grid-row-gap: 15px;
@@ -51,7 +51,7 @@ function Nav(props) {
         filter: "opacity(0.6)",
       }}/>
       <CardFooter>
-        <CardIndicator style={deviceStatus.active ? { backgroundColor: '#1DD387' } : { backgroundColor: '#CA6060' }}/>
+        <CardIndicator style={deviceStatus.active ? { backgroundColor: "#1DD387" } : { backgroundColor: "#CA6060" }}/>
         <FooterText>
           <div>{deviceStatus.active ? "ACTIVE" : "INACTIVE"}</div>
           <div>{deviceInfo.name}</div>
