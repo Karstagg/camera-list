@@ -40,21 +40,27 @@ const FooterText = Styled.div`
 `
 
 function Nav(props) {
+  console.log(props)
   let deviceInfo = props.device[0]
   let deviceStatus = props.device[1]
-  return <Card>
-    <CardBody style={deviceStatus.active ? { backgroundImage: `url(${deviceStatus.thumbnail})` } : {
-      backgroundImage: `url(${deviceStatus.thumbnail})`,
-      filter: "opacity(0.6)",
-    }}/>
-    <CardFooter>
-      <CardIndicator style={deviceStatus.active ? {backgroundColor: '#1DD387'} : {backgroundColor: '#CA6060'}}/>
-      <FooterText>
-        <div>{deviceStatus.active ? "ACTIVE" : "INACTIVE"}</div>
-        <div>{deviceInfo.name}</div>
-      </FooterText>
-    </CardFooter>
-  </Card>
+
+  if (props.search === deviceInfo.id || props.search === deviceInfo.name || props.search === "") {
+    return <Card>
+      <CardBody style={deviceStatus.active ? { backgroundImage: `url(${deviceStatus.thumbnail})` } : {
+        backgroundImage: `url(${deviceStatus.thumbnail})`,
+        filter: "opacity(0.6)",
+      }}/>
+      <CardFooter>
+        <CardIndicator style={deviceStatus.active ? { backgroundColor: '#1DD387' } : { backgroundColor: '#CA6060' }}/>
+        <FooterText>
+          <div>{deviceStatus.active ? "ACTIVE" : "INACTIVE"}</div>
+          <div>{deviceInfo.name}</div>
+        </FooterText>
+      </CardFooter>
+    </Card>
+  } else {
+    return null
+  }
 }
 
 export default Nav
