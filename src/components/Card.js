@@ -15,11 +15,14 @@ const CardFooter = Styled.div`
   width: 100%;
   height: 20%; 
   background-color: black;
+  color: white;
 `
 function Nav(props) {
+  console.log(props.device.name)
+  let deviceName = props.device.name;
   return <Card>
     <CardBody/>
-    <CardFooter/>
+    <CardFooter>{deviceName}</CardFooter>
   </Card>
 }
 

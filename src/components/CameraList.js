@@ -7,8 +7,18 @@ const devices = devicesData.devices
 const Grid = Styled.div`
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
-  width: 80%;
-  margin-left: 10%;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  width: 65%;
+  margin-left: 17.5%;
+  margin-right: 17.5%;
+  margin-top : 50px;
+  @media only screen and (max-width: 812px) {
+    grid-template-columns: 100% ;
+    width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  }
 `
 
 class CameraList extends React.Component {
@@ -18,7 +28,7 @@ class CameraList extends React.Component {
       {
         devices.map((device, index) => (
           <div key={index}>
-            <Card></Card>
+            <Card device={device}/>
           </div>
         ))
       }
