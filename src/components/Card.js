@@ -44,7 +44,7 @@ function Nav(props) {
   let deviceInfo = props.device[0]
   let deviceStatus = props.device[1]
 
-  if (props.search == deviceInfo.id || props.search === deviceInfo.name || props.search === "") {
+  if (props.search == deviceInfo.id || !deviceInfo.name.toLowerCase().indexOf(props.search.toLowerCase() ) || props.search === "") {
     return <Card>
       <CardBody style={deviceStatus.active ? { backgroundImage: `url(${deviceStatus.thumbnail})` } : {
         backgroundImage: `url(${deviceStatus.thumbnail})`,
