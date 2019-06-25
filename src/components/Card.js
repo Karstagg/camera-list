@@ -9,7 +9,8 @@ const Card = Styled.div`
 const CardBody = Styled.div`
   width: 100%;
   height: 80%; 
-  background-color: red;
+  background-size: cover;
+  background-position: center;
 `
 const CardFooter = Styled.div`
   width: 100%;
@@ -18,11 +19,11 @@ const CardFooter = Styled.div`
   color: white;
 `
 function Nav(props) {
-  console.log(props.device.name)
-  let deviceName = props.device.name;
+  let deviceInfo = props.device[0];
+  let deviceStatus = props.device[1];
   return <Card>
-    <CardBody/>
-    <CardFooter>{deviceName}</CardFooter>
+    <CardBody style={deviceStatus.active ? {backgroundImage: `url(${deviceStatus.thumbnail})`} : {backgroundImage: `url(${deviceStatus.thumbnail})`, filter: 'opacity(0.6)'}}/>
+    <CardFooter>{deviceInfo.name}</CardFooter>
   </Card>
 }
 
