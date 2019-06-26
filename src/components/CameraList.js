@@ -143,7 +143,7 @@ class CameraList extends React.Component {
                   onChange={this.handleChangeText}/>
         </div>
         <FilterDiv>
-          <Filter className="select" data-icon="../assets/icons/shape.png" onChange={this.handleChangeSelect}>
+          <Filter className="select" data-icon="../assets/icons/shape.png" defaultValue={this.state.sort} onChange={this.handleChangeSelect}>
             <option value="name">Sort by name</option>
             <option value="active">Sort by status</option>
           </Filter>

@@ -50,7 +50,6 @@ const FooterDesc = Styled.div`
 `
 
 function Nav(props) {
-  console.log(props)
   let deviceInfo = props.device[0]
   let deviceStatus = props.device[1]
 
