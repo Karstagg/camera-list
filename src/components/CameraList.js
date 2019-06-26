@@ -24,6 +24,35 @@ for (let i = 0; i < devices.length; i++) {
     }
   }
 }
+
+//sort arrays
+allDevices.sort(function(a, b) {
+  if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) {
+    return -1
+  }
+  if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) {
+    return 1
+  }
+  return 0
+})
+activeDevices.sort(function(a, b) {
+  if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) {
+    return -1
+  }
+  if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) {
+    return 1
+  }
+  return 0
+})
+inactiveDevices.sort(function(a, b) {
+  if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) {
+    return -1
+  }
+  if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) {
+    return 1
+  }
+  return 0
+})
 const Container = Styled.div`
   width: 65%;
   margin-left: 17.5%;
@@ -93,8 +122,8 @@ class CameraList extends React.Component {
                   onChange={this.handleChangeText}/>
         </div>
         <FilterDiv>
-          <Filter onChange={this.handleChangeSelect}>
-            <option value="name">Name</option>
+          <Filter data-icon="../assets/icons/shape.png" onChange={this.handleChangeSelect}>
+            <option value="name">Sort by name</option>
             <option value="active">Active</option>
           </Filter>
         </FilterDiv>
@@ -103,7 +132,6 @@ class CameraList extends React.Component {
   }
 
   render() {
-    console.log(activeDevices)
     if (this.state.sort === "name") {
       return <Container>
         {this.renderFilter()}

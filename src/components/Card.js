@@ -18,8 +18,8 @@ const CardBody = Styled.div`
 const CardFooter = Styled.div`
   width: 100%;
   height: 20%; 
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   border-radius: 0px 0px 15px 15px;
   text-align: left;
   display: grid;
@@ -38,6 +38,13 @@ const CardIndicator = Styled.div`
 const FooterText = Styled.div`
   margin-top: 5px;
 `
+const FooterDesc = Styled.div`
+  padding-top: 5px;
+  max-width: 250px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
 
 function Nav(props) {
   console.log(props)
@@ -53,8 +60,8 @@ function Nav(props) {
       <CardFooter>
         <CardIndicator style={deviceStatus.active ? { backgroundColor: "#1DD387" } : { backgroundColor: "#CA6060" }}/>
         <FooterText>
-          <div>{deviceStatus.active ? "ACTIVE" : "INACTIVE"}</div>
-          <div>{deviceInfo.name}</div>
+          <div style={{fontSize: "0.7em"}}>{deviceStatus.active ? "ACTIVE" : "INACTIVE"}</div>
+          <FooterDesc>{deviceInfo.name}</FooterDesc>
         </FooterText>
       </CardFooter>
     </Card>
