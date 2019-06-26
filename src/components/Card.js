@@ -7,6 +7,9 @@ const Card = Styled.div`
   margin: 0 auto;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3), 0 12px 20px 0 rgba(0, 0, 0, 0.23);
+  }
 `
 const CardBody = Styled.div`
   width: 100%;
