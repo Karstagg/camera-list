@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -17,6 +17,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.search {
+  background: url('./assets/icons/Search.svg') no-repeat scroll 2px 2px white;
+  padding-left: 40px;
 }
 
 .App-link {

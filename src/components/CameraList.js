@@ -35,14 +35,21 @@ const Container = Styled.div`
     width: 100%;
   }
 `
-const SearchArea= Styled.div`
-  text-align: left;
+const SearchArea = Styled.div`
+  display: grid;
+  grid-template-columns: 25% 75%;
+  padding-bottom: 30px;
 `
-const Search= Styled.input`
-  width: 25%
+const Search = Styled.input`
+width: 100%;
+height: 25px;
 `
-const Filter= Styled.select`
-  width: 10%
+const FilterDiv = Styled.div`
+  justify-self: end;
+`
+const Filter = Styled.select`
+  height: 30px;
+  width: 100px;
 `
 const Grid = Styled.div`
   display: grid;
@@ -60,28 +67,39 @@ const Grid = Styled.div`
 class CameraList extends React.Component {
   constructor(props) {
     super(props)
-    this.handleChangeText = this.handleChangeText.bind(this);
-    this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    this.handleChangeText = this.handleChangeText.bind(this)
+    this.handleChangeSelect = this.handleChangeSelect.bind(this)
     this.state = {
       sort: "name",
-      search: ''
+      search: "",
     }
   }
 
   handleChangeText(event) {
-    this.setState({search: event.target.value});
+    this.setState({ search: event.target.value })
   }
+
   handleChangeSelect(event) {
-    this.setState({sort: event.target.value});
+    this.setState({ sort: event.target.value })
   }
+
   renderFilter() {
-    return <SearchArea>
-      <Search type="text" name="search" value={this.state.search} onChange={this.handleChangeText} />
-      <Filter onChange={this.handleChangeSelect}>
-        <option value="name">Name</option>
-        <option value="active">Active</option>
-      </Filter>
-    </SearchArea>
+    return <div>
+      <h1>Your Cameras</h1>
+      <p>Total({allDevices.length})</p>
+      <SearchArea>
+        <div>
+          <Search className="search" placeholder="search" type="text" name="search" value={this.state.search}
+                  onChange={this.handleChangeText}/>
+        </div>
+        <FilterDiv>
+          <Filter onChange={this.handleChangeSelect}>
+            <option value="name">Name</option>
+            <option value="active">Active</option>
+          </Filter>
+        </FilterDiv>
+      </SearchArea>
+    </div>
   }
 
   render() {
@@ -91,42 +109,42 @@ class CameraList extends React.Component {
         {this.renderFilter()}
         <Label label="All Devices" count={allDevices.length}/>
         <Grid>
-        {
-          allDevices.map((device, index) => (
-            <div key={index}>
-              <Card device={device} search={this.state.search}/>
-            </div>
-          ))
-        }
-      </Grid>
+          {
+            allDevices.map((device, index) => (
+              <div key={index}>
+                <Card device={device} search={this.state.search}/>
+              </div>
+            ))
+          }
+        </Grid>
       </Container>
     } else {
       return <div>
-      <Container>
-        {this.renderFilter()}
-        <Label label="Active Devices" count={activeDevices.length}/>
-        <Grid>
-          {
-            activeDevices.map((device, index) => (
-              <div key={index}>
-                <Card device={device} search={this.state.search}/>
-              </div>
-            ))
-          }
-        </Grid>
+        <Container>
+          {this.renderFilter()}
+          <Label label="Active Devices" count={activeDevices.length}/>
+          <Grid>
+            {
+              activeDevices.map((device, index) => (
+                <div key={index}>
+                  <Card device={device} search={this.state.search}/>
+                </div>
+              ))
+            }
+          </Grid>
         </Container>
         <Container>
-        <Label label="Inactive Devices" count={inactiveDevices.length}/>
-        <Grid>
-          {
-            inactiveDevices.map((device, index) => (
-              <div key={index}>
-                <Card device={device} search={this.state.search}/>
-              </div>
-            ))
-          }
-        </Grid>
-      </Container>
+          <Label label="Inactive Devices" count={inactiveDevices.length}/>
+          <Grid>
+            {
+              inactiveDevices.map((device, index) => (
+                <div key={index}>
+                  <Card device={device} search={this.state.search}/>
+                </div>
+              ))
+            }
+          </Grid>
+        </Container>
       </div>
     }
   }
