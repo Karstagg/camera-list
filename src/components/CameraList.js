@@ -118,7 +118,7 @@ class CameraList extends React.Component {
       <p>Total({allDevices.length})</p>
       <SearchArea>
         <div>
-          <Search className="search" placeholder="search" type="text" name="search" value={this.state.search}
+          <Search className="search" placeholder="Search by name or Id" type="text" name="search" value={this.state.search}
                   onChange={this.handleChangeText}/>
         </div>
         <FilterDiv>
