@@ -31,6 +31,16 @@ body {
   border-radius: 5px;
 }
 
+.select {
+  background: url('./assets/icons/shape.png') no-repeat 6px 9px;
+  background-size: 12px;
+  text-align-last: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
 .App-link {
   color: #61dafb;
 }

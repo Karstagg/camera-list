@@ -7,6 +7,7 @@ const NavBar = Styled.div`
   height: 120px; 
   background-image: url(${img});
   background-size: cover;
+  background-position: center;
 `
 function Nav(props) {
   return <NavBar/>;

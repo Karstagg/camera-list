@@ -6,7 +6,7 @@ const LabelGrid = Styled.div`
   grid-template-columns: 15% 85%;
   @media only screen and (max-width: 812px) {
     margin-left: 10%
-    grid-template-columns: 30% 60%;
+    grid-template-columns: 35% 55%;
   }
 `
 const Hr = Styled.div`

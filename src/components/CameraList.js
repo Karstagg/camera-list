@@ -12,6 +12,7 @@ let allDevices = []
 let activeDevices = []
 let inactiveDevices = []
 
+//add data to appropriate arrays
 for (let i = 0; i < devices.length; i++) {
   for (let j = 0; j < statuses.length; j++) {
     if (devices[i].id === statuses[j].deviceId) {
@@ -53,6 +54,7 @@ inactiveDevices.sort(function(a, b) {
   }
   return 0
 })
+
 const Container = Styled.div`
   width: 65%;
   margin-left: 17.5%;
@@ -68,17 +70,29 @@ const SearchArea = Styled.div`
   display: grid;
   grid-template-columns: 25% 75%;
   padding-bottom: 30px;
+   @media only screen and (max-width: 812px) {
+    grid-template-columns: 100% ;
+    justify-items: center;
+  }
 `
 const Search = Styled.input`
 width: 100%;
 height: 25px;
+ @media only screen and (max-width: 812px) {
+    width: 80%;
+  }
 `
 const FilterDiv = Styled.div`
   justify-self: end;
+   @media only screen and (max-width: 812px) {
+    justify-self: center;
+    padding-top: 10px;
+  }
 `
 const Filter = Styled.select`
   height: 30px;
-  width: 100px;
+  width: 120px;
+  text-align: center;
 `
 const Grid = Styled.div`
   display: grid;
@@ -91,7 +105,11 @@ const Grid = Styled.div`
     
   }
 `
-
+const Heading = Styled.div`
+  @media only screen and (max-width: 812px) {
+    text-align: center;
+  }
+`
 
 class CameraList extends React.Component {
   constructor(props) {
@@ -114,17 +132,20 @@ class CameraList extends React.Component {
 
   renderFilter() {
     return <div>
-      <h1>Your Cameras</h1>
-      <p>Total({allDevices.length})</p>
+      <Heading>
+        <h1>Your Cameras</h1>
+        <p>Total ({allDevices.length})</p>
+      </Heading>
       <SearchArea>
         <div>
-          <Search className="search" placeholder="Search by name or Id" type="text" name="search" value={this.state.search}
+          <Search className="search" placeholder="Search by name or Id" type="text" name="search"
+                  value={this.state.search}
                   onChange={this.handleChangeText}/>
         </div>
         <FilterDiv>
-          <Filter data-icon="../assets/icons/shape.png" onChange={this.handleChangeSelect}>
+          <Filter className="select" data-icon="../assets/icons/shape.png" onChange={this.handleChangeSelect}>
             <option value="name">Sort by name</option>
-            <option value="active">Active</option>
+            <option value="active">Sort by status</option>
           </Filter>
         </FilterDiv>
       </SearchArea>
