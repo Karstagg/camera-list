@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+body {
+  font: 16px 'Open Sans';
+}
+
 .App {
   text-align: left;
 }
@@ -20,8 +25,10 @@
 }
 
 .search {
-  background: url('./assets/icons/Search.svg') no-repeat scroll 2px 2px white;
-  padding-left: 40px;
+  background: url('./assets/icons/Search.svg') no-repeat 2px 6px;
+  background-size: 15px;
+  padding-left: 25px;
+  border-radius: 5px;
 }
 
 .App-link {
