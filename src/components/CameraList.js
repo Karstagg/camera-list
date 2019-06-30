@@ -7,53 +7,6 @@ const devicesData = require("../data/sample-devices")
 const devicesStatus = require("../data/sample-status")
 const devices = devicesData.devices
 const statuses = devicesStatus.status
-//const status = devicesData.devices
-let allDevices = []
-let activeDevices = []
-let inactiveDevices = []
-
-//add data to appropriate arrays
-for (let i = 0; i < devices.length; i++) {
-  for (let j = 0; j < statuses.length; j++) {
-    if (devices[i].id === statuses[j].deviceId) {
-      if (statuses[j].active === true) {
-        activeDevices.push([devices[i], statuses[j]])
-      } else {
-        inactiveDevices.push([devices[i], statuses[j]])
-      }
-      allDevices.push([devices[i], statuses[j]])
-    }
-  }
-}
-
-//sort arrays
-allDevices.sort(function(a, b) {
-  if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) {
-    return -1
-  }
-  if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) {
-    return 1
-  }
-  return 0
-})
-activeDevices.sort(function(a, b) {
-  if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) {
-    return -1
-  }
-  if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) {
-    return 1
-  }
-  return 0
-})
-inactiveDevices.sort(function(a, b) {
-  if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) {
-    return -1
-  }
-  if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) {
-    return 1
-  }
-  return 0
-})
 
 const Container = Styled.div`
   width: 65%;
@@ -116,16 +69,49 @@ class CameraList extends React.Component {
     super(props)
     this.handleChangeText = this.handleChangeText.bind(this)
     this.handleChangeSelect = this.handleChangeSelect.bind(this)
+
+    //flatten arrays into an array with a single object for each device
+    this.main = []
+    for (let i = 0; i < devices.length; i++) {
+      for (let j = 0; j < statuses.length; j++) {
+        if (devices[i].id === statuses[j].deviceId) {
+          this.main.push({
+            id: devices[i].id,
+            name: devices[i].name,
+            active: statuses[j].active,
+            thumbnail: statuses[j].thumbnail,
+          })
+        }
+      }
+
+    }
+
+    //make sure that array is in alphabetical order
+    this.main.sort(function(a, b) {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return -1
+      }
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return 1
+      }
+      return 0
+    })
+
+    //initial state
     this.state = {
       sort: "name",
       search: "",
+      cameras: this.main,
     }
+
   }
 
+  //handle text input
   handleChangeText(event) {
     this.setState({ search: event.target.value })
   }
 
+  //handle select input
   handleChangeSelect(event) {
     this.setState({ sort: event.target.value })
   }
@@ -134,7 +120,7 @@ class CameraList extends React.Component {
     return <div>
       <Heading>
         <h1>Your Cameras</h1>
-        <p>Total ({allDevices.length})</p>
+        <p>Total ({this.state.cameras.length})</p>
       </Heading>
       <SearchArea>
         <div>
@@ -143,7 +129,8 @@ class CameraList extends React.Component {
                   onChange={this.handleChangeText}/>
         </div>
         <FilterDiv>
-          <Filter className="select" data-icon="../assets/icons/shape.png" defaultValue={this.state.sort} onChange={this.handleChangeSelect}>
+          <Filter className="select" data-icon="../assets/icons/shape.png" defaultValue={this.state.sort}
+                  onChange={this.handleChangeSelect}>
             <option value="name">Sort by name</option>
             <option value="active">Sort by status</option>
           </Filter>
@@ -156,12 +143,12 @@ class CameraList extends React.Component {
     if (this.state.sort === "name") {
       return <Container>
         {this.renderFilter()}
-        <Label label="All Devices" count={allDevices.length}/>
+        <Label label="All Devices" count={this.state.cameras.length}/>
         <Grid>
           {
-            allDevices.map((device, index) => (
+            this.state.cameras.filter(x => !x.name.toLowerCase().indexOf(this.state.search.toLowerCase()) || x.id === this.state.search).map((device, index) => (
               <div key={index}>
-                <Card device={device} search={this.state.search}/>
+                <Card device={device}/>
               </div>
             ))
           }
@@ -171,10 +158,10 @@ class CameraList extends React.Component {
       return <div>
         <Container>
           {this.renderFilter()}
-          <Label label="Active Devices" count={activeDevices.length}/>
+          <Label label="Active Devices" count={this.state.cameras.filter(x => x.active).length}/>
           <Grid>
             {
-              activeDevices.map((device, index) => (
+              this.state.cameras.filter(x => (!x.name.toLowerCase().indexOf(this.state.search.toLowerCase()) || x.id === this.state.search) && x.active).map((device, index) => (
                 <div key={index}>
                   <Card device={device} search={this.state.search}/>
                 </div>
@@ -183,10 +170,10 @@ class CameraList extends React.Component {
           </Grid>
         </Container>
         <Container>
-          <Label label="Inactive Devices" count={inactiveDevices.length}/>
+          <Label label="Inactive Devices" count={this.state.cameras.filter(x => !x.active).length}/>
           <Grid>
             {
-              inactiveDevices.map((device, index) => (
+              this.state.cameras.filter(x => (!x.name.toLowerCase().indexOf(this.state.search.toLowerCase()) || x.id === this.state.search) && !x.active).map((device, index) => (
                 <div key={index}>
                   <Card device={device} search={this.state.search}/>
                 </div>
