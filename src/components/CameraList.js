@@ -146,7 +146,7 @@ class CameraList extends React.Component {
         <Label label="All Devices" count={this.state.cameras.length}/>
         <Grid>
           {
-            this.state.cameras.filter(x => x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.id === this.state.search).map((device, index) => (
+            this.state.cameras.filter(x => x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.id == this.state.search).map((device, index) => (
               <div key={index}>
                 <Card device={device}/>
               </div>
@@ -161,7 +161,7 @@ class CameraList extends React.Component {
           <Label label="Active Devices" count={this.state.cameras.filter(x => x.active).length}/>
           <Grid>
             {
-              this.state.cameras.filter(x => (x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.id === this.state.search) && x.active).map((device, index) => (
+              this.state.cameras.filter(x => (x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.id == this.state.search) && x.active).map((device, index) => (
                 <div key={index}>
                   <Card device={device} search={this.state.search}/>
                 </div>
@@ -173,7 +173,7 @@ class CameraList extends React.Component {
           <Label label="Inactive Devices" count={this.state.cameras.filter(x => !x.active).length}/>
           <Grid>
             {
-              this.state.cameras.filter(x => (x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.id === this.state.search) && !x.active).map((device, index) => (
+              this.state.cameras.filter(x => (x.name.toLowerCase().includes(this.state.search.toLowerCase()) || x.id == this.state.search) && !x.active).map((device, index) => (
                 <div key={index}>
                   <Card device={device} search={this.state.search}/>
                 </div>
